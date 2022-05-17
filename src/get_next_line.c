@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvaladar <pvaladar@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:54 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/05/14 01:27:23 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:16:59 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,20 @@
 //      Upon reading end-of-file, zero is returned.  
 //      Otherwise, a -1 is returned and the global variable errno is set to 
 //      indicate the error.
-
+//
 // File descriptors reading:	http://www.bottomupcs.com/file_descriptors.xhtml
 //
 // Function will have the BUFFER_SIZE defined during compilation
 // From subject: 
 //	$ cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
-//
-// First, check if the file descriptior `fd` passes all the conditions, 
-// else return NULL; 
-// Conditions:
-// 1 - `fd` is equal or greather than zero (non-negative value)
-// 2 - `fd` does not exceed the limit of maximum file descriptors (e.g. 1024)
-// 3 - `BUFFER_SIZE` is greather than zero
-// 4 - `fd` is successfully read
+
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE];
+	//char		*line;
 
-	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
+	if (read(fd, 0, 0) == -1 || BUFFER_SIZE == 0 || fd > FD_MAX)
 		return (NULL);
-	read(fd, buff, BUFFER_SIZE);
-	return (buff);
+	read(fd, buffer, BUFFER_SIZE);
+	return (buffer);
 }

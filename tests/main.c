@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvaladar <pvaladar@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:49:26 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/05/14 01:39:29 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:15:13 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,35 @@
 //     open(const char *path, int oflag, ...);
 //
 // Sample compilation syntax:
-// $ cc -Wall -Werror -Wextra -D BUFFER_SIZE=100  *.c ../src/*.c -o gnl && ./gnl
+// $ cc -Wall -Werror -Wextra -D BUFFER_SIZE=42  *.c  ../tests/main.c -o gnl
 int	main(int argc, char **argv)
 {
-	int	fd, i;
+	int	fd;
+	int	i;
 
-	(void)argv;
-	if (argc != 2)
+	//(void)argv;
+	(void)argc;
+	/*
+	if (argc == 1)
+		puts("STDIN : ");
+	else if (argc == 2)
+	{
+		puts("FILE :");
+		return (0);
+	}
+	else
 	{
 		puts("Usage: $ gnl <file to read>");
+		return (0);
 	}
-	fd = open("3linesASCII.txt", O_RDONLY);
+	*/
+	//if (argc == 1)
+	//		fd = open(0, O_RDONLY);
+	//else
+	fd = open(argv[1], O_RDONLY);
 	i = 1;
-	printf("Line %d : [%s]\n", i++, get_next_line(fd));
-//	printf("Line %d : {%s}\n", i++, get_next_line(fd));
-//	printf("Line %d : {%s}\n", i++, get_next_line(fd));
+	printf("fd [%d] | Line [%d] | Content [%s]\n", fd, i++, get_next_line(fd));
+	printf("fd [%d] | Line [%d] | Content [%s]\n", fd, i++, get_next_line(fd));
+	printf("fd [%d] | Line [%d] | Content [%s]\n", fd, i++, get_next_line(fd));
 	return (0);
 }
