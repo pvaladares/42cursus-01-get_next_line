@@ -1,3 +1,3 @@
-Hello World
-Hi there! 123
-45678
+Line1 lowercase
+Line2 numbersonly
+Line3 UPPERCASE

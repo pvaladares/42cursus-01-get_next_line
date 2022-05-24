@@ -6,25 +6,16 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/05/19 15:33:41 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:24:56 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-/*
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-*/
-//# include <stdlib.h> // definition of size_t and NULL (e.g.: ft_memset)
+
 # include <unistd.h> // used by read()
 # include <stdlib.h> // definition of size_t and NULL (e.g.: ft_memset)
 # include <errno.h> // definition of error codes (e.g.: ft_calloc)
-# include <stdio.h>
-//# include <limits.h> // OPEN_MAX
-
-# include <fcntl.h>
 
 char	*get_next_line(int fd);
 char	*gnl_fill_line(char *buff, char *line);
@@ -32,6 +23,11 @@ void	gnl_reffil_buffer(char *buff);
 size_t	gnl_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 int		ft_is_string_printable(char *str);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 //# define FD_MAX 10240
 // Check the maximum number of open file descriptors:
