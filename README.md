@@ -1,9 +1,52 @@
 # 42cursus-01-get_next_line
 
 
-# Notes
+# 1. Considerations about the [subject](pdf/42cursus_get_next_line_v10.pdf)
 
-## Validating input for `char	*get_next_line(int fd)` function:
+
+## 1.1 `BUFFER_SIZE`
+
+> Does your function still work if the BUFFER_SIZE value is 9999? If it is 1? 10000000?
+
+The subject gives a hint on the implemetation to be used. If the stack memory version is used, since stack is quite limited, for very high `BUFFER_SIZE` values the function will most likely break. 
+There are at least two reasons to not use stack memory:
+- stack memory requires continuous memory locations;
+- stack memory is relatively limited.
+```c
+static char buffer[BUFFER_SIZE + 1];
+```
+Please refer to [here](https://stackoverflow.com/questions/10482974/why-is-stack-memory-size-so-limited) for a thread about this discussion on the limits of the stack memory.
+
+So the design should make use of dynamically allocated memory on the heap, from `malloc` family functions.
+```c
+static buffer char*;
+//...
+buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+```
+
+## 1.2 Handling binary files
+
+> We also consider that get_next_line() has an undefined behavior when reading a binary file. However, **you can implement a logical way to handle this behavior if you want to.**
+
+From [Wikipedia](https://en.wikipedia.org/wiki/Binary_file): 
+
+*"A binary file is a computer file that is not a text file."*
+
+So a possible implementation would be to search the buffer after the `read` function for any char that is not printable - see [`ft_isprint.c`](https://github.com/pvaladares/42cursus-00-Libft/blob/main/ft_isprint.c) - and return `NULL` if found any.
+
+
+## 1.3 Handling `stdin`
+
+> When writing your tests, remember that:
+> 1) Both the buffer size and the line size can be of very different values.
+> 2) **A file descriptor does not only point to regular files**.
+> Be smart and cross-check with your peers. Prepare a full set of diverse tests for defense.
+
+The subject is giving a hint that `stdin` (a non regular file) will be used to test the function being submitted. More info about file descriptors [here](https://en.wikipedia.org/wiki/File_descriptor).
+
+# 2. Some notes about the implementation
+
+## 2.1 Validating input for `char	*get_next_line(int fd)` function:
 
 - Depending on how `BUFFER_SIZE` is handled inside the function, the compiler may or may not abort even with flags `-Wall -Werror -Wextra`
 - Some investigation was done to find out what the maximum admissible `fd` value that could be passed to the `read` function.
