@@ -1,3 +1,0 @@
-Line1 lowercase
-Line2 numbersonly
-Line3 UPPERCASE
