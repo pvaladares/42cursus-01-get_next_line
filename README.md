@@ -38,7 +38,9 @@ So a possible implementation would be to search the buffer after the `read` func
 ## 1.3 Handling `stdin`
 
 > When writing your tests, remember that:
-> 1) Both the buffer size and the line size can be of very different values.
+> 
+> (...)
+> 
 > 2) **A file descriptor does not only point to regular files**.
 > Be smart and cross-check with your peers. Prepare a full set of diverse tests for defense.
 
