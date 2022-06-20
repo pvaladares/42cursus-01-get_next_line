@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 16:59:39 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:59:28 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // ======================== PROTECTION AGAINST MULTIPLE INCLUSIONS
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 // ======================== INCLUDES
 
