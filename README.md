@@ -8,16 +8,16 @@
 
 > Does your function still work if the BUFFER_SIZE value is 9999? If it is 1? 10000000?
 
-The subject gives a hint on the implemetation to be used. If the stack memory version is used, since stack is quite limited, for very high `BUFFER_SIZE` values the function will most likely break. 
-There are at least two reasons to not use stack memory:
-- stack memory requires continuous memory locations;
-- stack memory is relatively limited.
+> When writing your tests, remember that:
+> 1) Both the buffer size and the line size can be of very different values.
+
+The subject gives two hints throughout the document on the implementation to be used. If the stack memory version is used, since stack is quite limited, for very high `BUFFER_SIZE` values and very large lines the function will most likely break due to insufficient memory. Please refer to [here](https://stackoverflow.com/questions/10482974/why-is-stack-memory-size-so-limited) for a thread about this discussion on the limits of the stack memory.
+
 ```c
 static char buffer[BUFFER_SIZE + 1];
 ```
-Please refer to [here](https://stackoverflow.com/questions/10482974/why-is-stack-memory-size-so-limited) for a thread about this discussion on the limits of the stack memory.
 
-So the design should make use of dynamically allocated memory on the heap, from `malloc` family functions.
+So the design should make use of dynamically allocated memory on the heap, from `malloc` family functions together with chained / linked lists.
 ```c
 static buffer char*;
 //...
@@ -38,7 +38,9 @@ So a possible implementation would be to search the buffer after the `read` func
 ## 1.3 Handling `stdin`
 
 > When writing your tests, remember that:
-> 1) Both the buffer size and the line size can be of very different values.
+> 
+> (...)
+> 
 > 2) **A file descriptor does not only point to regular files**.
 > Be smart and cross-check with your peers. Prepare a full set of diverse tests for defense.
 
