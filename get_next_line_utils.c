@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:59 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 16:53:28 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 23:33:18 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-// This function concenates s1 and s2 strings into a new string
+// This function concatenates s1 and s2 strings into a new string
 // Malloc is used to create the string
 char	*ft_strjoin(char const *s1, char const *s2)
 {

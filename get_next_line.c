@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:54 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 16:50:44 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 23:32:33 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ int	ft_newline(const char *str)
 	return (0);
 }
 
-// Function attempts to retrieve all bytes from `fd` to `buffer` untill
+// Function attempts to retrieve all bytes from `fd` to `buffer` until
 // EOF is reached
 // In case there is an error reading the `fd` it is returned `GNL_ERROR`
 // In case it is the first iteration allocate memory in the heap
 // and create an emtpy string with null terminator `tmp`; (in the next
 // loops `tmp` is assigned with the address of the recently joined `str`)
 // Concatenate the `buffer` with the `tmp` variable
-// Loop the above untill a NEW LINE is found (or EOF is reached)
+// Loop the above until a NEW LINE is found (or EOF is reached)
 char	*ft_read(int fd, char *buffer, char *tmp, char *str)
 {
 	int		bytes_read;

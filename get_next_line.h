@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 16:59:39 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 23:33:03 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@
 # include <stdlib.h> // definition of size_t and NULL (e.g.: ft_memset)
 # include <errno.h> // definition of error codes (e.g.: ft_calloc)
 # include <limits.h> // definition of OPEN_MAX
-# include <stdio.h> // for testing
 
 // ======================== DEFINITIONS
 /*
  * In case BUFFER_SIZE is 0 the get_next_line function will have NO buffer
- * space to make the calculaion, so the function will do nothing!
+ * space to make the calculation, so the function will do nothing!
  * Since it makes no sense, it is filtered out in the preliminary checks
  * of the function. If the user does not set the BUFFER_SIZE at compilation
  * stage, we define it with default value, also used for testing purposes
