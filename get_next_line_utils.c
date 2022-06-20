@@ -6,26 +6,27 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:59 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 12:23:35 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:53:28 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 // Function retrieves the length of the string passed
-// The string terminator is taken in consideration
 size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
+	if (s == NULL)
+		return (i);
 	while (s[i] != '\0')
 		i++;
 	return (i);
 }
 
 // This function concenates s1 and s2 strings into a new string
-// Malloc is used to compute create the string
+// Malloc is used to create the string
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_str;
@@ -54,29 +55,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (new_str);
 }
 
-// Function attempts to free the string in case its pointer is not NULL
-// After freeing the pointer (breaking the link between pointer and pointee)
-// The value of the pointer is set to NULL so it does not point to some 
+// Function attempts to free the string pointer (see man)
+// Then the value of the pointer is set to NULL so it does not point to some
 // random value in memory if dereferenced
 void	safe_free(char *str)
 {
-	if (str != NULL)
-		free(str);
+	free(str);
 	str = NULL;
-}
-
-// Function checks whether or not the string is fully printable
-// This is used to distinguish between non-text files, often called binary
-int	ft_is_string_printable(char const *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] < ' ' || str[i] > '~')
-			return (0);
-		i++;
-	}
-	return (1);
 }

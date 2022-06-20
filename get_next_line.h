@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 12:24:03 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:54:05 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@
 # endif
 
 # define GNL_ERROR NULL
-# define GNL_BINARY_FILE NULL
 # define GNL_END_OF_FILE 0
-# define GNL_LINE_READ 1
-# define GNL_NO_NEWLINE 2
+# define GNL_NEWLINE 1
 
 // ======================== PROTOTYPES
 
 // get_next_line.c
+char	*ft_before(const char *str);
+char	*ft_after(char *str);
+int		ft_newline(const char *str);
+char	*ft_read(int fd, char *buffer, char *tmp, char *str);
 char	*get_next_line(int fd);
 
 // get_next_line_utils.c
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	safe_free(char *str);
-int		ft_is_string_printable(char const *str);
 
 #endif
