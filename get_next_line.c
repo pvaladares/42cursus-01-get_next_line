@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:54 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/14 17:27:45 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:33:50 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,126 @@
 // Chained list contents:
 // https://elearning.intra.42.fr/notions/c-piscine-c-12/subnotions
 // https://www.youtube.com/playlist?list=PLVQYiy6xNUxwmUOmyYSaI6gD1UyfF9MSj
-char	*get_next_line(int fd)
-{
-	static t_buffer	buffer;
-	char			*line;
-	int				result;
 
-	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO || fd >= OPEN_MAX
-		|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
-		return (GNL_ERROR);
-	line = NULL;
-	if (buffer.data == NULL)
+char	*ft_before(char *str)
+{
+	int		i;
+	char	*ptr;
+
+	if (str == NULL || str[0] == '\0')
+		return (NULL);
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+		i++;
+	ptr = malloc((i + 2) * sizeof(char));
+	if (ptr == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
 	{
-		buffer.data = malloc((BUFFER_SIZE + 1) * sizeof(char));
-		if (buffer.data == NULL)
-			return (GNL_ERROR);
-		//buffer.start = NULL;
+		ptr[i] = str[i];
+		i++;
 	}
-	result = GNL_NO_NEWLINE;
-	while (result == GNL_NO_NEWLINE)
-		result = read(fd, buffer.data, BUFFER_SIZE);
-		//result = append_next_chunk(fd, line, &buffer);
-	if (result == GNL_END_OF_FILE || result == -1)
-		//clear_buffer(&(buffers.data));
-	return (buffer.data);
+	if (str[i] == '\n')
+		ptr[i++] = '\n';
+	ptr[i] = '\0';
+	return (ptr);
 }
 
+char	*ft_after(char *str)
+{
+	int		i;
+	int		j;
+	char	*ptr;
+
+	if (str == NULL)
+		return (NULL);
+	j = 0;
+	while (str[j] != '\n' && str[j] != '\0')
+		j++;
+	if (str[j] == '\0')
+	{
+		safe_free(str);
+		return (NULL);
+	}
+	i = ft_strlen(str);
+	ptr = malloc((i - j) * sizeof(char));
+	if (ptr == NULL)
+		return (NULL);
+	i = 0;
+	j++;
+	while (str[j] != '\0')
+		ptr[i++] = str[j++];
+	ptr[i] = '\0';
+	safe_free(str);
+	return (ptr);
+}
+
+int	ft_newline(char *str)
+{
+	if (str == NULL)
+		return (-1);
+	while (*str != '\0')
+	{
+		if (*str == '\n')
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+char	*ft_read(int fd, char *buf, char *tmp, char *str)
+{
+	int		bytes_read;
+
+	bytes_read = 1;
+	while (bytes_read != GNL_END_OF_FILE)
+	{
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			safe_free(buf);
+			return (NULL);
+		}
+		buf[bytes_read] = '\0';
+		tmp = str;
+		if (tmp == NULL)
+		{
+			tmp = malloc(sizeof(char));
+			tmp[0] = '\0';
+		}
+		str = ft_strjoin(tmp, buf);
+		safe_free(tmp);
+		if (ft_newline(str) == 1)
+			break ;
+	}
+	safe_free(buf);
+	return (str);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*str;
+	char		*buf;
+	char		*line;
+	char		*tmp;
+
+	tmp = NULL;
+	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO || fd >= OPEN_MAX
+		|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (buf == NULL)
+		return (NULL);
+	str = ft_read(fd, buf, tmp, str);
+	if (str == NULL)
+		return (NULL);
+	line = ft_before(str);
+	str = ft_after(str);
+	return (line);
+}
+
+/*
 #include <fcntl.h> // open()
 #include <stdio.h> // printf()
 #include <string.h>
@@ -91,4 +185,4 @@ int	main(int argc, char **argv)
 	//printf("fd [%d] | Line [%d] | Content [%s]\n", fd, i++, get_next_line(fd));
 	printf("Sizeof [%s] = [%lu] | strlen = [%lu]\n", hello, sizeof(hello), strlen(hello));
 	return (0);
-}
+}*/

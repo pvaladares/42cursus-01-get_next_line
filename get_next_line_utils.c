@@ -6,23 +6,16 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:59 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/14 10:39:38 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:32:52 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	clean_and_free(char *str)
+void	safe_free(char *str)
 {
-	int	i;
-
-	i = 0;
-	if (*str)
-	{
-		while (str[i])
-			str[i++] = '\0';
+	if (str != NULL)
 		free(str);
-	}
 	str = NULL;
 }
 

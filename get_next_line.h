@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/14 17:28:54 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:33:09 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,6 @@
 # define GNL_LINE_READ 1
 # define GNL_NO_NEWLINE 2
 
-typedef struct	s_buffer	t_buffer;
-
-struct s_buffer
-{
-	char		*data;
-	t_buffer	*previous;
-	t_buffer	*next;
-};
-
 // ======================== PROTOTYPES
 
 // get_next_line.c
@@ -66,5 +57,6 @@ size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	safe_free(char *str);
 
 #endif
