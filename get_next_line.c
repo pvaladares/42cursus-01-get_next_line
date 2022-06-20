@@ -6,34 +6,13 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:54 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 11:33:50 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 12:27:48 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// Function name    | get_next_line
-// Prototype        | char *get_next_line(int fd);
-// Turn in files    | get_next_line.c, get_next_line_utils.c, get_next_line.h
-// Parameters       | fd: The file descriptor to read from
-// Return value     | Read line: correct behavior
-//					| NULL: there is nothing else to read, or an error occurred
-// External functs. | read, malloc, free
-// Description      | Write a function that returns a line read from a
-//					| file descriptor
-//
-// Functions returns NULL if EOF is found (0 from read function) or if there
-// is an error during runtime (-1 from read function)
-// line variable is set to NULL so the pointer is defined it has to be returned
-/*
- * Information on `max open files per process` from previous release of macOS
- * opensource.apple.com/source/xnu/xnu-6153.141.1/bsd/sys/syslimits.h.auto.html
- */
-// Chained list contents:
-// https://elearning.intra.42.fr/notions/c-piscine-c-12/subnotions
-// https://www.youtube.com/playlist?list=PLVQYiy6xNUxwmUOmyYSaI6gD1UyfF9MSj
-
-char	*ft_before(char *str)
+char	*ft_before(const char *str)
 {
 	int		i;
 	char	*ptr;
@@ -53,14 +32,17 @@ char	*ft_before(char *str)
 		i++;
 	}
 	if (str[i] == '\n')
-		ptr[i++] = '\n';
+	{
+		ptr[i] = '\n';
+		i++;
+	}
 	ptr[i] = '\0';
 	return (ptr);
 }
 
 char	*ft_after(char *str)
 {
-	int		i;
+	int		n;
 	int		j;
 	char	*ptr;
 
@@ -74,85 +56,114 @@ char	*ft_after(char *str)
 		safe_free(str);
 		return (NULL);
 	}
-	i = ft_strlen(str);
-	ptr = malloc((i - j) * sizeof(char));
+	n = ft_strlen(str);
+	ptr = malloc((n - j) * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
-	i = 0;
+	n = 0;
 	j++;
 	while (str[j] != '\0')
-		ptr[i++] = str[j++];
-	ptr[i] = '\0';
+		ptr[n++] = str[j++];
+	ptr[n] = '\0';
 	safe_free(str);
 	return (ptr);
 }
 
-int	ft_newline(char *str)
+// Function checks if the charater NEW LINE is present within the
+// passed string
+// RETURNS '-1' in case the string is a NULL pointer
+// RETURNS '1' in case '\n' is found
+// RETURNS '0' in case NEW LINE is not found
+int	ft_newline(const char *str)
 {
+	int	i;
+
+	i = 0;
 	if (str == NULL)
 		return (-1);
-	while (*str != '\0')
+	while (str[i] != '\0')
 	{
-		if (*str == '\n')
+		if (str[i] == '\n')
 			return (1);
-		str++;
+		i++;
 	}
 	return (0);
 }
 
-char	*ft_read(int fd, char *buf, char *tmp, char *str)
+char	*ft_read(int fd, char *buffer, char *tmp, char *str)
 {
 	int		bytes_read;
 
 	bytes_read = 1;
-	while (bytes_read != GNL_END_OF_FILE)
+	while (bytes_read != GNL_END_OF_FILE && ft_newline(str) != GNL_NO_NEWLINE)
 	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			safe_free(buf);
-			return (NULL);
+			safe_free(buffer);
+			return (GNL_ERROR);
 		}
-		buf[bytes_read] = '\0';
+		buffer[bytes_read] = '\0';
 		tmp = str;
 		if (tmp == NULL)
 		{
 			tmp = malloc(sizeof(char));
+			if (tmp == NULL)
+				return (GNL_ERROR);
 			tmp[0] = '\0';
 		}
-		str = ft_strjoin(tmp, buf);
+		str = ft_strjoin(tmp, buffer);
 		safe_free(tmp);
-		if (ft_newline(str) == 1)
-			break ;
+		//if (ft_newline(str) == 1)
+		//	break ;
 	}
-	safe_free(buf);
+	safe_free(buffer);
 	return (str);
 }
 
+// Function name    | get_next_line
+// Prototype        | char *get_next_line(int fd);
+// Turn in files    | get_next_line.c, get_next_line_utils.c, get_next_line.h
+// Parameters       | fd: The file descriptor to read from
+// Return value     | Read line: correct behavior
+//					| NULL: there is nothing else to read, or an error occurred
+// External functs. | read, malloc, free
+// Description      | Write a function that returns a line read from a
+//					| file descriptor
+//
+// Functions returns NULL if EOF is found (0 from read function) or if there
+// is an error during runtime (-1 from read function)
+// line variable is set to NULL so the pointer is defined it has to be returned
+/*
+ * Information on `max open files per process` from previous release of macOS
+ * opensource.apple.com/source/xnu/xnu-6153.141.1/bsd/sys/syslimits.h.auto.html
+ */
 char	*get_next_line(int fd)
 {
 	static char	*str;
-	char		*buf;
+	char		*buffer;
 	char		*line;
 	char		*tmp;
 
-	tmp = NULL;
 	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO || fd >= OPEN_MAX
 		|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (buf == NULL)
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (buffer == NULL)
 		return (NULL);
-	str = ft_read(fd, buf, tmp, str);
+	tmp = NULL;
+	str = ft_read(fd, buffer, tmp, str);
 	if (str == NULL)
+	{
+		safe_free(buffer);
 		return (NULL);
+	}
 	line = ft_before(str);
 	str = ft_after(str);
 	return (line);
 }
 
-/*
-#include <fcntl.h> // open()
+/*#include <fcntl.h> // open()
 #include <stdio.h> // printf()
 #include <string.h>
 

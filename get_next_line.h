@@ -6,7 +6,7 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 11:33:09 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 12:24:03 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,9 @@
 char	*get_next_line(int fd);
 
 // get_next_line_utils.c
-char	*gnl_fill_line(char *buff, char *line);
-void	gnl_reffil_buffer(char *buff);
-size_t	gnl_strlen(const char *str);
-char	*ft_strchr(const char *s, int c);
-int		ft_is_string_printable(char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s1);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
 void	safe_free(char *str);
+int		ft_is_string_printable(char const *str);
 
 #endif
