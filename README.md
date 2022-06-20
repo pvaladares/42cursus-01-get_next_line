@@ -1,10 +1,10 @@
 # 42cursus-01-get_next_line
 
 
-# 1. Considerations about the [subject](pdf/42cursus_get_next_line_v10.pdf)
+# Considerations about the [subject](pdf/42cursus_get_next_line_v10.pdf)
 
 
-## 1.1 `BUFFER_SIZE`
+## `BUFFER_SIZE`
 
 > Does your function still work if the BUFFER_SIZE value is 9999? If it is 1? 10000000?
 
@@ -24,7 +24,7 @@ char *buffer;
 buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 ```
 
-## 1.2 Handling binary files
+## Handling binary files
 
 > We also consider that get_next_line() has an undefined behavior when reading a binary file. However, **you can implement a logical way to handle this behavior if you want to.**
 
@@ -37,7 +37,7 @@ So a possible implementation would be to search the buffer after the `read` func
 *not implemented on the current version*
 
 
-## 1.3 Handling `stdin`
+## Handling `stdin`
 
 > When writing your tests, remember that:
 > 
@@ -48,9 +48,9 @@ So a possible implementation would be to search the buffer after the `read` func
 
 The subject is giving a hint that `stdin` (a non regular file) will be used to test the function being submitted. More info about file descriptors [here](https://en.wikipedia.org/wiki/File_descriptor).
 
-# 2. Some notes about the implementation
+# Some notes about the implementation
 
-## 2.1 Validating input for `char	*get_next_line(int fd)` function:
+## Validating input for `char	*get_next_line(int fd)` function:
 
 - Depending on how `BUFFER_SIZE` is handled inside the function, the compiler may or may not abort even with flags `-Wall -Werror -Wextra`
 - Some investigation was done to find out what the maximum admissible `fd` value that could be passed to the `read` function.
