@@ -6,11 +6,11 @@
 /*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:32:59 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 16:58:17 by pvaladar         ###   ########.fr       */
+/*   Updated: 2022/06/20 18:50:55 by pvaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 // Function retrieves the length of the string passed
 size_t	ft_strlen(const char *s)
