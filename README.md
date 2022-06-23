@@ -11,7 +11,9 @@
 > When writing your tests, remember that:
 > 1) Both the buffer size and the line size can be of very different values.
 
-The subject gives two hints throughout the document on the implementation to be used. If the stack memory version is used, since stack is quite limited, for very high `BUFFER_SIZE` values and very large lines the function will most likely break due to insufficient memory. Please refer to [here](https://stackoverflow.com/questions/10482974/why-is-stack-memory-size-so-limited) for a thread about this discussion on the limits of the stack memory.
+The subject gives two hints throughout the document on the implementation to be used. If the stack memory version is used, since stack is quite limited, for very high `BUFFER_SIZE` values and very large lines the function will most likely break due to insufficient memory. 
+
+Please refer to [here](https://stackoverflow.com/questions/10482974/why-is-stack-memory-size-so-limited) for a thread about this discussion on the limits of the stack memory.
 
 ```c
 char buffer[BUFFER_SIZE + 1];
@@ -32,7 +34,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Binary_file):
 
 *"A binary file is a computer file that is not a text file."*
 
-So a possible implementation would be to search the buffer after the `read` function for any char that is not printable - see [`ft_isprint.c`](https://github.com/pvaladares/42cursus-00-Libft/blob/main/ft_isprint.c) - and return `NULL` if found any. 
+So a possible implementation would be to search the buffer after the `read` function for any char that is not printable - see [`ft_isprint.c`](https://github.com/pvaladares/42cursus-00-Libft/blob/main/src/ft_isprint.c) - and return `NULL` if found any. 
 
 *not implemented on the current version*
 
